@@ -46,12 +46,13 @@ var game = {
 		levels.init();
 		loader.init();
 		mouse.init();
+	
 
 		// Load All Sound Effects and Background Music
 
 		//"Kindergarten" by Gurdonark
 		//http://ccmixter.org/files/gurdonark/26491 is licensed under a Creative Commons license
-		game.backgroundMusic = loader.loadSound('audio/gurdonark-kindergarten');
+		
 
 		game.slingshotReleasedSound = loader.loadSound("audio/released");
 		game.bounceSound = loader.loadSound('audio/bounce');
@@ -69,7 +70,10 @@ var game = {
 		game.canvas = document.getElementById('gamecanvas');
 		game.context = game.canvas.getContext('2d');
 	},
-	startBackgroundMusic:function(){
+	startBackgroundMusic:function(number){
+		var level = levels.data[number];
+
+		game.backgroundMusic = loader.loadSound('audio/' + level.music);
 		var toggleImage = $("#togglemusic")[0];
 		game.backgroundMusic.play();
 		toggleImage.src="images/icons/sound.png";
@@ -110,12 +114,14 @@ var game = {
 	slingshotX:140,
 	slingshotY:280,
 	start:function(){
+
+
 		$('.gamelayer').hide();
 		// Display the game canvas and score
 		$('#gamecanvas').show();
 		$('#scorescreen').show();
 
-		game.startBackgroundMusic();
+		game.startBackgroundMusic(game.currentLevel.number);
 
 		game.mode = "intro";
 		game.offsetLeft = 0;
@@ -411,6 +417,7 @@ var levels = {
 	 {// First level
 		foreground:'desert-foreground',
 		background:'clouds-background',
+		music: 'gurdonark-kindergarten',
 		entities:[
 			{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
 			{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
@@ -430,6 +437,7 @@ var levels = {
 		{   // Second level
 			foreground:'desert-foreground',
 			background:'clouds-background',
+			music: 'level2',
 			entities:[
 				{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
 				{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
@@ -452,7 +460,27 @@ var levels = {
 				{type:"hero", name:"orange",x:80,y:405},
 				{type:"hero", name:"apple",x:140,y:405},
 			]
-		}
+		},
+			 {// Third level
+				foreground:'forest',
+				background:'clouds-background',
+				music: 'gurdonark-kindergarten',
+				entities:[
+					{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
+					{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
+		
+					{type:"block", name:"wood", x:520,y:380,angle:90,width:100,height:25},
+					{type:"block", name:"glass", x:520,y:280,angle:90,width:100,height:25},
+					{type:"villain", name:"burger",x:520,y:205,calories:590},
+		
+					{type:"block", name:"wood", x:620,y:380,angle:90,width:100,height:25},
+					{type:"block", name:"glass", x:620,y:280,angle:90,width:100,height:25},
+					{type:"villain", name:"fries", x:620,y:205,calories:420},
+		
+					{type:"hero", name:"orange",x:80,y:405},
+					{type:"hero", name:"apple",x:140,y:405},
+				]
+			 }
 	],
 
 	// Initialize level selection screen
@@ -482,7 +510,7 @@ var levels = {
 		$('#score').html('Score: '+game.score);
 		game.currentHero = undefined;
 		var level = levels.data[number];
-
+		this.level = level;
 
 		//load the background, foreground and slingshot images
 		game.currentLevel.backgroundImage = loader.loadImage("images/backgrounds/"+level.background+".png");
@@ -870,66 +898,7 @@ var loader = {
 	}
 };
 
-/*
-var loader = {
-	loaded:true,
-	loadedCount:0, // Assets that have been loaded so far
-	totalCount:0, // Total number of assets that need to be loaded
 
-	init:function(){
-		// check for sound support
-		var mp3Support,oggSupport;
-		var audio = document.createElement('audio');
-		if (audio.canPlayType) {
-	   		// Currently canPlayType() returns: "", "maybe" or "probably"
-	  		mp3Support = "" != audio.canPlayType('audio/mpeg');
-	  		oggSupport = "" != audio.canPlayType('audio/ogg; codecs="vorbis"');
-		} else {
-			//The audio tag is not supported
-			mp3Support = false;
-			oggSupport = false;
-		}
-
-		// Check for ogg, then mp3, and finally set soundFileExtn to undefined
-		loader.soundFileExtn = oggSupport?".ogg":mp3Support?".mp3":undefined;
-	},
-
-	loadImage:function(url){
-		this.totalCount++;
-		this.loaded = false;
-		$('#loadingscreen').show();
-		var image = new Image();
-		image.src = url;
-		image.onload = loader.itemLoaded;
-		return image;
-	},
-	soundFileExtn:".ogg",
-	loadSound:function(url){
-		this.totalCount++;
-		this.loaded = false;
-		$('#loadingscreen').show();
-		var audio = new Audio();
-		audio.src = url+loader.soundFileExtn;
-		audio.addEventListener("canplaythrough", loader.itemLoaded, false);
-		return audio;
-	},
-	itemLoaded:function(){
-		loader.loadedCount++;
-		$('#loadingmessage').html('Loaded '+loader.loadedCount+' of '+loader.totalCount);
-		if (loader.loadedCount === loader.totalCount){
-			// Loader has loaded completely..
-			loader.loaded = true;
-			// Hide the loading screen
-			$('#loadingscreen').hide();
-			//and call the loader.onload method if it exists
-			if(loader.onload){
-				loader.onload();
-				loader.onload = undefined;
-			}
-		}
-	}
-}
-*/
 var mouse = {
 	x:0,
 	y:0,
