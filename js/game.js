@@ -464,23 +464,87 @@ var levels = {
 			 {// Third level
 				foreground:'forest',
 				background:'clouds-background',
+
+				//new functionality to change music per level
 				music: 'gurdonark-kindergarten',
 				entities:[
 					{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
 					{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
-		
-					{type:"block", name:"wood", x:520,y:380,angle:90,width:100,height:25},
-					{type:"block", name:"glass", x:520,y:280,angle:90,width:100,height:25},
-					{type:"villain", name:"burger",x:520,y:205,calories:590},
-		
+	
+
+					{type:"block", name:"wood", x:920,y:380,angle:90,width:100,height:25},
+					{type:"block", name:"wood", x:820,y:380,angle:90,width:100,height:25},
+					{type:"block", name:"wood", x:720,y:380,angle:90,width:100,height:25},
 					{type:"block", name:"wood", x:620,y:380,angle:90,width:100,height:25},
-					{type:"block", name:"glass", x:620,y:280,angle:90,width:100,height:25},
-					{type:"villain", name:"fries", x:620,y:205,calories:420},
-		
+					{type:"block", name:"wood", x:520,y:380,angle:90,width:100,height:25},
+
+					{type:"block", name:"glass", x:670,y:317.5,width:100,height:25},
+					{type:"block", name:"glass", x:770,y:317.5,width:100,height:25},
+	
+					{type:"block", name:"glass", x:570,y:317.5,width:100,height:25},
+					{type:"block", name:"glass", x:670,y:255,angle:90,width:100,height:25},
+					{type:"block", name:"glass", x:770,y:255,angle:90,width:100,height:25},
+					{type:"block", name:"glass", x:870,y:317.5,width:100,height:25},
+
+					{type:"block", name:"wood", x:720,y:192.5,width:100,height:25},
+	
+					{type:"villain", name:"burger",x:715,y:155,calories:590},
+					{type:"villain", name:"fries",x:670,y:405,calories:420},
+					{type:"villain", name:"pizza",x:870,y:405,calories:420},
+					{type:"villain", name:"sodacan",x:765,y:400,calories:1000},
+	
+					{type:"hero", name:"strawberry",x:30,y:415},
 					{type:"hero", name:"orange",x:80,y:405},
 					{type:"hero", name:"apple",x:140,y:405},
+					{type:"hero", name:"watermelon",x:140,y:405},
+
 				]
-			 }
+			 },
+
+
+			 			 {// 4 level
+							foreground:'4',
+							background:'clouds-background',
+			
+							//new functionality to change music per level
+							music: 'level2',
+							entities:[
+								{type:"ground", name:"dirt", x:500,y:440,width:1000,height:20,isStatic:true},
+								{type:"ground", name:"wood", x:185,y:390,width:30,height:80,isStatic:true},
+				
+								{type:"block", name:"wood", x:910,y:155,angle:90,width:100,height:45},
+								{type:"block", name:"wood", x:910,y:255,angle:90,width:100,height:45},
+								{type:"block", name:"wood", x:920,y:380,angle:90,width:100,height:25},
+								{type:"block", name:"wood", x:820,y:380,angle:90,width:100,height:25},
+								{type:"block", name:"wood", x:720,y:380,angle:90,width:100,height:25},
+								{type:"block", name:"wood", x:620,y:380,angle:90,width:100,height:25},
+								{type:"block", name:"wood", x:520,y:380,angle:90,width:100,height:25},
+								{type:"block", name:"wood", x:530,y:255,angle:90,width:100,height:45},
+								{type:"block", name:"wood", x:530,y:155,angle:90,width:100,height:45},
+
+								{type:"block", name:"glass", x:670,y:317.5,width:100,height:25},
+								{type:"block", name:"glass", x:770,y:317.5,width:100,height:25},
+				
+								{type:"block", name:"glass", x:570,y:317.5,width:100,height:25},
+								{type:"block", name:"glass", x:670,y:255,angle:90,width:100,height:25},
+								{type:"block", name:"glass", x:770,y:255,angle:90,width:100,height:25},
+								{type:"block", name:"glass", x:870,y:317.5,width:100,height:25},
+			
+								{type:"block", name:"wood", x:720,y:192.5,width:100,height:25},
+				
+								{type:"villain", name:"sodaglass",x:715,y:290,calories:2000},
+								{type:"villain", name:"burger",x:715,y:155,calories:590},
+								{type:"villain", name:"fries",x:670,y:405,calories:420},
+								{type:"villain", name:"pizza",x:870,y:405,calories:420},
+								{type:"villain", name:"sodacan",x:765,y:400,calories:1000},
+				
+								{type:"hero", name:"apple",x:30,y:415},
+								{type:"hero", name:"orange",x:80,y:405},
+								{type:"hero", name:"pineapple",x:140,y:405},
+								{type:"hero", name:"watermelon",x:140,y:405},
+			
+							]
+						 }
 	],
 
 	// Initialize level selection screen
@@ -569,6 +633,15 @@ var entities = {
 			friction:0.5,
 			restitution:0.7,
 		},
+		"sodaglass":{
+			shape:"rectangle",
+			fullHealth:80,
+			width:40,
+			height:60,
+			density:1,
+			friction:0.5,
+			restitution:0.7,
+		},
 		"fries":{
 			shape:"rectangle",
 			fullHealth:50,
@@ -578,10 +651,30 @@ var entities = {
 			friction:0.5,
 			restitution:0.6,
 		},
+
+		//new bad guy added
+		"pizza":{
+			shape:"rectangle",
+			fullHealth:50,
+			width:40,
+			height:50,
+			density:1,
+			friction:0.5,
+			restitution:0.6,
+		},
+
 		"apple":{
 			shape:"circle",
 			radius:25,
 			density:1.5,
+			friction:0.5,
+			restitution:0.4,
+		},
+
+		"pineapple":{
+			shape:"circle",
+			radius:25,
+			density:2.5,
 			friction:0.5,
 			restitution:0.4,
 		},
@@ -596,6 +689,15 @@ var entities = {
 			shape:"circle",
 			radius:15,
 			density:2.0,
+			friction:0.5,
+			restitution:0.4,
+		},
+
+		//new hero added
+		"watermelon":{
+			shape:"circle",
+			radius:35,
+			density:1.0,
 			friction:0.5,
 			restitution:0.4,
 		},
